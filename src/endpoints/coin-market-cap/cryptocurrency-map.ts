@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { CoinMarketCapResponse } from './responses/coin-market-cap';
 
 export const getCMCCurrenciesMapDataFromAPI = async () => {
