@@ -1,22 +1,19 @@
-import { useADABalance } from "endpoints/addresses/ADA";
-import { useAddresses } from "endpoints/addresses/addresses";
-import React from "react";
-import {
-  FC,
-  useContext,
-  createContext,
-  useReducer,
-  useEffect,
-  useMemo,
-} from "react";
-import { Balance } from "shared-types/balance";
+import { getADABalanceFromAPI } from 'endpoints/addresses/ADA';
+import { useAddressesBalance } from 'endpoints/addresses';
+import { FC, useContext, createContext, useReducer, useEffect } from 'react';
+import { Balance } from 'shared-types/balance';
+import { getAddressesFromLS } from 'utils/helper-functions';
+import { useCMCMap } from 'endpoints/coin-market-cap';
+import { CoinMarketCapMapItem } from 'endpoints/coin-market-cap/responses/cryptocurrency-map';
 
 interface AppStateContext {
+  CMCMap: CoinMarketCapMapItem[];
   balances: Balance[];
 }
 
 const initialState: AppStateContext = {
-  balances: [],
+  CMCMap: [],
+  balances: []
 };
 
 const appStateContext = createContext<AppStateContext>(initialState);
@@ -24,36 +21,26 @@ const useAppStateContext = (): AppStateContext => useContext(appStateContext);
 const { Provider, Consumer: AppStateConsumer } = appStateContext;
 
 const AppStateProvider: FC = ({ children }) => {
-  const ADAAddresses = useAddresses("ADA");
-  const addBalance = (prevBalances: Balance[], newCurrency: Balance) => {
-    const allBalancesCopy = prevBalances.filter(
-      (currency) =>
-        newCurrency.symbol !== currency.symbol ||
-        newCurrency.origin !== currency.origin ||
-        newCurrency.origin_details !== currency.origin_details ||
-        newCurrency.balance_state !== currency.balance_state
-    );
-    allBalancesCopy.push(newCurrency);
-    return allBalancesCopy;
-  };
+  const CMCMap = useCMCMap();
+  // const ADAAddresses = getAddressesFromLS('ADA');
 
-  const addBalances = (prevBalances: Balance[], newCurrencies: Balance[]) => {
-    var allBalancesCopy = prevBalances;
-    for (const key in newCurrencies) {
-      allBalancesCopy = addBalance(allBalancesCopy, newCurrencies[key]);
-    }
-    return allBalancesCopy;
-  };
-
-  const [balances, addToBalances] = useReducer(addBalances, []);
-  const ADAAddressesBalances = useADABalance(ADAAddresses);
-  useEffect(() => {
-    // console.log(ADAAddressesBalances);
-    if (ADAAddressesBalances.length) addToBalances(ADAAddressesBalances);
-  }, [ADAAddressesBalances]);
+  const [balances, addToBalances] = useReducer(
+    (prevBalances: Balance[], newCurrencies: Balance[]) =>
+      prevBalances.concat(newCurrencies),
+    []
+  );
+  // const ADAAddressesBalances = useAddressesBalance(
+  //   getADABalanceFromAPI,
+  //   'ADA',
+  //   ADAAddresses
+  // );
+  // useEffect(() => {
+  //   // if (ADAAddressesBalances.length) addToBalances(ADAAddressesBalances);
+  // }, [ADAAddressesBalances]);
 
   const value = {
-    balances,
+    CMCMap,
+    balances
   };
 
   return <Provider value={value}>{children}</Provider>;

@@ -1,11 +1,9 @@
-import React, { useReducer, useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import MyNavbar from "Components/Navbar";
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import MyNavbar from 'components/navbar';
 // import AddressesSelection from "../screens/AddressesSelection";
 // import ExchangeSelection from "../screens/ExchangeSelection";
 // import ManualSelection from "../screens/ManualSelection";
-import Main from "../screens/main";
+import Main from '../screens/main';
 
 const Router = () => {
   return (

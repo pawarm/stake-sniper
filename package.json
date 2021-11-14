@@ -13,7 +13,6 @@
     "ccxt": "^1.55.61",
     "celsius-sdk": "^0.10.15",
     "http-proxy-middleware": "^2.0.1",
-    "local-storage": "^2.0.0",
     "node-binance-api": "^0.13.0",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
@@ -23,8 +22,6 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-select": "^4.3.1",
-    "reactstrap": "^8.9.0",
     "smart-round": "^1.0.0",
     "web-vitals": "^1.0.1"
   },

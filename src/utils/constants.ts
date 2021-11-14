@@ -6,4 +6,8 @@ const month = day * 31;
 const year = day * 365;
 
 export const refreshRate = 10000;
-export const ADAAddressesExpireTime = 15 * minute;
+export const CMCMapRefreshRate = 10000;
+export const AddressesExpireTime = {
+  ADA: 15 * minute,
+  BTC: 15 * minute
+};

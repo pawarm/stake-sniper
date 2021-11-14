@@ -1,4 +1,4 @@
-import { BlockchairADAData } from "./ADA";
+import { BlockchairADAData } from './ADA';
 
 export interface BlockchairResponse {
   data: BlockchairADAData;

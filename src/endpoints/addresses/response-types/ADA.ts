@@ -4,7 +4,7 @@ export interface BlockchairADAData {
       caAddress: {
         unCAddress: string;
       };
-      caType: "CPubKeyAddress";
+      caType: 'CPubKeyAddress';
       caChainTip: {
         ctBlockNo: number;
         ctSlotNo: number;

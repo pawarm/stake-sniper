@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { useState } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 const MyNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
