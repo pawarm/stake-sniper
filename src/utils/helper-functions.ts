@@ -1,5 +1,5 @@
-import { CoinMarketCapMapItem } from '../../types/cryptocurrency-map';
-import { Balance } from '../../types/balance';
+import { CoinMarketCapMapItem } from '@custom-types/coin-market-cap';
+import { Balance } from '@custom-types/balance';
 
 export const getBalanceByDecimals = (balance: string, decimals: number) => {
   var numBalance = parseFloat(balance);

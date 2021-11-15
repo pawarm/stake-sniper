@@ -18,13 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "noImplicitAny": true,
     "sourceMap": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@custom-types/*": ["../types/*"]
+    }
   },
   "include": [
-    "src",
-    "../types/**/*"
+    "src"
   ]
 }

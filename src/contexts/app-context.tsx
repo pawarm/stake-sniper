@@ -4,7 +4,7 @@ import { FC, useContext, createContext, useReducer, useEffect } from 'react';
 import { Balance } from '../../types/balance';
 import { getAddressesFromLS } from 'utils/helper-functions';
 import { useCMCMap } from 'endpoints/coin-market-cap';
-import { CoinMarketCapMapItem } from '../../types/cryptocurrency-map';
+import { CoinMarketCapMapItem } from '@custom-types/coin-market-cap';
 
 interface AppStateContext {
   CMCMap: CoinMarketCapMapItem[];

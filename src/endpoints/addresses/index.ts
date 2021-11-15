@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Balance } from '../../../types/balance';
+import { Balance } from '@custom-types/balance';
 import { AddressesExpireTime, refreshRate } from 'utils/constants';
 import {
   getAddressesBalancesFromLS,
