@@ -3,7 +3,7 @@ const express = require("express");
 const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const app = express();
-const port = server.listen(process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
 
 const cmc = require("./cmc");
 
