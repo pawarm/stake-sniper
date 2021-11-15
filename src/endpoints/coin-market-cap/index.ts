@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CMCMapRefreshRate, refreshRate } from 'utils/constants';
 import { getCMCMapFromLS, setCMCMapInLS } from 'utils/helper-functions';
 import { getCMCCurrenciesMap } from './cryptocurrency-map';
-import { CoinMarketCapMapItem } from './responses/cryptocurrency-map';
+import { CoinMarketCapMapItem } from '../../../types/cryptocurrency-map';
 
 export const useCMCMap = () => {
   const [map, setMap] = useState<CoinMarketCapMapItem[]>([]);
