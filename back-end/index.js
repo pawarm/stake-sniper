@@ -1,11 +1,11 @@
-require("dotenv").config();
-const express = require("express");
-const rateLimit = require("express-rate-limit");
-const cors = require("cors");
+require('dotenv').config();
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const cmc = require("./cmc");
+const cmc = require('./cmc');
 
 app.use(express.json());
 
@@ -13,13 +13,13 @@ app.use(express.json());
 // https://expressjs.com/en/guide/behind-proxies.html
 // app.set('trust proxy', 1);
 
-const whitelist = ["http://127.0.0.1", "http://127.0.0.1:5500"];
+const whitelist = ['http://127.0.0.1', 'http://127.0.0.1:5500'];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error('Not allowed by CORS'));
     }
   },
   optionsSuccessStatus: 200
@@ -45,8 +45,8 @@ const limiter = rateLimit({
 app.use(limiter);
 
 //test route
-app.get("/", (req, res) => res.json({ success: "Hello World!" }));
+app.get('/', (req, res) => res.json({ success: 'Hello World!' }));
 
-app.use("/cmc", cmc);
+app.use('/cmc', cmc);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
