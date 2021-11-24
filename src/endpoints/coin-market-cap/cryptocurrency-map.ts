@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { CoinMarketCapResponse } from '@custom-types/coin-market-cap';
+import { CoinMarketCapResponse } from 'types/coin-market-cap';
 
 export const getCMCCurrenciesMapDataFromAPI = async () => {
   try {
     return await axios.get<CoinMarketCapResponse>(
-      'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY='
+      'https://coin-slate.herokuapp.com/cmc/cryptocurrency/map'
     );
   } catch (error) {
     console.error(error);

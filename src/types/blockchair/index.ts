@@ -1,7 +1,8 @@
 import { BlockchairADAData } from './ADA';
+import { BlockchairBTCLikeData } from './BTCLike';
 
 export interface BlockchairResponse {
-  data: BlockchairADAData;
+  data: BlockchairADAData | BlockchairBTCLikeData;
   context: {
     code:
       | 200

@@ -21,10 +21,7 @@
     "baseUrl": "src",
     "noImplicitAny": true,
     "sourceMap": true,
-    "noEmit": true,
-    "paths": {
-      "@custom-types/*": ["../types/*"]
-    }
+    "noEmit": true
   },
   "include": [
     "src"

@@ -8,7 +8,7 @@ const MyNavbar = () => {
     <div>
       <Navbar color="inverse" expand="md">
         <LinkContainer to="/">
-          <Navbar.Brand>My Crypto Portfolio</Navbar.Brand>
+          <Navbar.Brand>Coin Slate</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle onClick={() => setIsOpen(!isOpen)} />
         <Navbar.Collapse>

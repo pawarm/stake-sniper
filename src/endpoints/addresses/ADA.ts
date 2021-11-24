@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Balance } from '@custom-types/balance';
+import { Balance } from 'types/balance';
 import { getBalanceByDecimals } from 'utils/helper-functions';
-import { BlockchairADAData } from '@custom-types/blockchair/ADA';
-import { BlockchairResponse } from '@custom-types/blockchair';
+import { BlockchairADAData } from 'types/blockchair/ADA';
+import { BlockchairResponse } from 'types/blockchair';
 
 export const getADADataFromAPI = async (address: string) => {
   return await axios.get<BlockchairResponse>(

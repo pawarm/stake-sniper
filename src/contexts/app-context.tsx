@@ -1,10 +1,10 @@
 import { getADABalanceFromAPI } from 'endpoints/addresses/ADA';
 import { useAddressesBalance } from 'endpoints/addresses';
 import { FC, useContext, createContext, useReducer, useEffect } from 'react';
-import { Balance } from '../../types/balance';
+import { Balance } from '../types/balance';
 import { getAddressesFromLS } from 'utils/helper-functions';
 import { useCMCMap } from 'endpoints/coin-market-cap';
-import { CoinMarketCapMapItem } from '@custom-types/coin-market-cap';
+import { CoinMarketCapMapItem } from 'types/coin-market-cap';
 
 interface AppStateContext {
   CMCMap: CoinMarketCapMapItem[];

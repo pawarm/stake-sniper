@@ -1,34 +1,24 @@
 import { useEffect, useState } from 'react';
 import { CMCMapRefreshRate, refreshRate } from 'utils/constants';
-import { getCMCMapFromLS, setCMCMapInLS } from 'utils/helper-functions';
 import { getCMCCurrenciesMap } from './cryptocurrency-map';
-import { CoinMarketCapMapItem } from '@custom-types/coin-market-cap';
+import { CoinMarketCapMapItem } from 'types/coin-market-cap';
 
 export const useCMCMap = () => {
   const [map, setMap] = useState<CoinMarketCapMapItem[]>([]);
-  const [lastUpdate, setLastUpdate] = useState<number>(0);
   const [update, setUpdate] = useState<boolean>(true);
 
   const triggerUpdate = () => {
     setUpdate(!update);
-    setLastUpdate(Date.now());
     setTimeout(() => triggerUpdate(), refreshRate);
   };
   useEffect(() => triggerUpdate(), []);
 
   useEffect(() => {
-    const localMap = getCMCMapFromLS();
-    if (!localMap.length || Date.now() - lastUpdate > CMCMapRefreshRate) {
-      getCMCCurrenciesMap().then((map) => {
-        console.log(map);
-        if (map) {
-          setMap(map);
-          setCMCMapInLS(map);
-        }
-      });
-    } else {
-      setMap(localMap);
-    }
+    getCMCCurrenciesMap().then((map) => {
+      if (map) {
+        setMap(map);
+      }
+    });
   }, [update]);
 
   return map;

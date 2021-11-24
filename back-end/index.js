@@ -8,7 +8,10 @@ const port = process.env.PORT || 3000;
 const cmc = require('./cmc');
 
 app.use(express.json());
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 // Use if you're behind a reverse proxy
 // https://expressjs.com/en/guide/behind-proxies.html
 // app.set('trust proxy', 1);
