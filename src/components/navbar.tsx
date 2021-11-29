@@ -7,7 +7,7 @@ const MyNavbar = () => {
   return (
     <div>
       <Navbar color="inverse" expand="md">
-        <LinkContainer to="/">
+        <LinkContainer to="/main">
           <Navbar.Brand>Coin Slate</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle onClick={() => setIsOpen(!isOpen)} />

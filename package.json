@@ -2,7 +2,7 @@
   "name": "coin-slate",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://pawarm.github.io/coin-slate/",
+  "homepage": "https://pawarm.github.io/coin-slate/",
   "dependencies": {
     "@babel/core": "^7.15.5",
     "@polkadot/api": "^5.5.2",
