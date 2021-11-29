@@ -11,14 +11,14 @@ const Router = () => {
       <MyNavbar />
 
       <Switch>
-        <Route path="/main">
+        <Route path="main">
           <Main />
         </Route>
-        <Route path="/addresses">{/* <AddressesSelection /> */}</Route>
+        <Route path="addresses">{/* <AddressesSelection /> */}</Route>
         <Route path="/exchanges">{/* <ExchangeSelection /> */}</Route>
         <Route path="/yield"></Route>
         <Route path="/manual">{/* <ManualSelection /> */}</Route>
-        <Redirect from="/" to="/main" />
+        <Redirect from="/" to="main" />
       </Switch>
     </BrowserRouter>
   );
