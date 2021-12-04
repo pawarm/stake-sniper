@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/coin-slate/static/js/main.ab8e1d2c.chunk.js",
-    "main.js.map": "/coin-slate/static/js/main.ab8e1d2c.chunk.js.map",
-    "runtime-main.js": "/coin-slate/static/js/runtime-main.95f77a1c.js",
-    "runtime-main.js.map": "/coin-slate/static/js/runtime-main.95f77a1c.js.map",
+    "main.js": "/coin-slate/static/js/main.ffdab6f4.chunk.js",
+    "main.js.map": "/coin-slate/static/js/main.ffdab6f4.chunk.js.map",
+    "runtime-main.js": "/coin-slate/static/js/runtime-main.d25efb8d.js",
+    "runtime-main.js.map": "/coin-slate/static/js/runtime-main.d25efb8d.js.map",
     "static/css/2.383c0125.chunk.css": "/coin-slate/static/css/2.383c0125.chunk.css",
-    "static/js/2.b89d0791.chunk.js": "/coin-slate/static/js/2.b89d0791.chunk.js",
-    "static/js/2.b89d0791.chunk.js.map": "/coin-slate/static/js/2.b89d0791.chunk.js.map",
-    "static/js/3.2db94633.chunk.js": "/coin-slate/static/js/3.2db94633.chunk.js",
-    "static/js/3.2db94633.chunk.js.map": "/coin-slate/static/js/3.2db94633.chunk.js.map",
+    "static/js/2.3b4e34f8.chunk.js": "/coin-slate/static/js/2.3b4e34f8.chunk.js",
+    "static/js/2.3b4e34f8.chunk.js.map": "/coin-slate/static/js/2.3b4e34f8.chunk.js.map",
+    "static/js/3.2408f330.chunk.js": "/coin-slate/static/js/3.2408f330.chunk.js",
+    "static/js/3.2408f330.chunk.js.map": "/coin-slate/static/js/3.2408f330.chunk.js.map",
     "index.html": "/coin-slate/index.html",
     "static/css/2.383c0125.chunk.css.map": "/coin-slate/static/css/2.383c0125.chunk.css.map",
-    "static/js/2.b89d0791.chunk.js.LICENSE.txt": "/coin-slate/static/js/2.b89d0791.chunk.js.LICENSE.txt"
+    "static/js/2.3b4e34f8.chunk.js.LICENSE.txt": "/coin-slate/static/js/2.3b4e34f8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.95f77a1c.js",
+    "static/js/runtime-main.d25efb8d.js",
     "static/css/2.383c0125.chunk.css",
-    "static/js/2.b89d0791.chunk.js",
-    "static/js/main.ab8e1d2c.chunk.js"
+    "static/js/2.3b4e34f8.chunk.js",
+    "static/js/main.ffdab6f4.chunk.js"
   ]
 }
