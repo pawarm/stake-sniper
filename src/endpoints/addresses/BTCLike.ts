@@ -1,29 +1,33 @@
 import axios from 'axios';
-import { Balance } from 'types/balance';
+import { AddresesBalances, Balance } from 'types/balance';
 import { BlockchairResponse } from 'types/blockchair';
 import { BlockchairBTCLikeData } from 'types/blockchair/BTCLike';
 import { getBalanceByDecimals } from 'utils/helper-functions';
-type BTCLikeCurrencySymbol =
-  | 'BTC'
-  | 'BCH'
-  | 'LTC'
-  | 'BSV'
-  | 'DOGE'
-  | 'DASH'
-  | 'GRS'
-  | 'ZEC'
-  | 'XEC';
+import { supportedCurrencyAddressesSymbols } from 'utils/SupportedCurrencyAddresses';
 
-const BTCLikeCurrencyMap = {
-  BTC: 'bitcoin',
-  BCH: 'bitcoin-cash',
-  LTC: 'litecoin',
-  BSV: 'bitcoin-sv',
-  DOGE: 'dogecoin',
-  DASH: 'dash',
-  GRS: 'groestlcoin',
-  ZEC: 'zcash',
-  XEC: 'ecash'
+const BTCLikeCurrencyMap = (symbol: string) => {
+  switch (symbol) {
+    case 'BTC':
+      return 'bitcoin';
+    case 'BCH':
+      return 'bitcoin-cash';
+    case 'LTC':
+      return 'litecoin';
+    case 'BSV':
+      return 'bitcoin-sv';
+    case 'DOGE':
+      return 'dogecoin';
+    case 'DASH':
+      return 'dash';
+    case 'GRS':
+      return 'groestlcoin';
+    case 'ZEC':
+      return 'zcash';
+    case 'XEC':
+      return 'ecash';
+    default:
+      return undefined;
+  }
 };
 
 export async function getBTCLikeDataFromAPI(address: string, name: string) {
@@ -33,35 +37,31 @@ export async function getBTCLikeDataFromAPI(address: string, name: string) {
 }
 export const getBTCLikeBalancesFromAPI = async (
   addresses: string[],
-  symbol: BTCLikeCurrencySymbol
+  symbol: supportedCurrencyAddressesSymbols
 ) => {
-  const resolvedBalances = await Promise.all(
-    addresses.map(async (address) => {
-      const response = await getBTCLikeDataFromAPI(
-        address,
-        BTCLikeCurrencyMap[symbol]
-      );
-      if (response.data) {
-        const responseData = response.data.data as BlockchairBTCLikeData;
-        const balance = getBalanceByDecimals(
+  const name = BTCLikeCurrencyMap(symbol);
+  if (!name) return;
+  var balances: AddresesBalances = {};
+  const resolvedData = await Promise.all(
+    addresses.map((address) => getBTCLikeDataFromAPI(address, name))
+  );
+  resolvedData.forEach((response) => {
+    if (response.data) {
+      const responseData = response.data.data as BlockchairBTCLikeData;
+      const addresses = Object.keys(responseData);
+      addresses.forEach((address) => {
+        const quote = getBalanceByDecimals(
           responseData[address].address.balance.toString(),
           8
         );
-        const ret: Balance = {
+        const balance: Balance = {
           symbol: symbol,
-          origin: 'address',
-          origin_details: address,
-          balance: balance,
-          balance_state: 'available',
-          last_update: Date.now()
+          balance: quote,
+          balance_state: 'available'
         };
-        return ret;
-      }
-    })
-  );
-  const finalBalances: Balance[] = [];
-  resolvedBalances.forEach((balance) => {
-    if (balance) finalBalances.push(balance);
+        balances[address] = [balance];
+      });
+    }
   });
-  return finalBalances;
+  return balances;
 };

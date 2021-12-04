@@ -1,19 +1,29 @@
-import { getADABalanceFromAPI } from 'endpoints/addresses/ADA';
-import { useAddressesBalance } from 'endpoints/addresses';
-import { FC, useContext, createContext, useReducer, useEffect } from 'react';
-import { Balance } from '../types/balance';
+import {
+  FC,
+  useContext,
+  createContext,
+  useEffect,
+  useState,
+  useMemo
+} from 'react';
+import { AllBalances } from '../types/balance';
 import { getAddressesFromLS } from 'utils/helper-functions';
 import { useCMCMap } from 'endpoints/coin-market-cap';
 import { CoinMarketCapMapItem } from 'types/coin-market-cap';
+import supportedCurrencyAddresses from 'utils/SupportedCurrencyAddresses';
 
 interface AppStateContext {
   CMCMap: CoinMarketCapMapItem[];
-  balances: Balance[];
+  balances: AllBalances;
 }
 
 const initialState: AppStateContext = {
   CMCMap: [],
-  balances: []
+  balances: {
+    addresses: {},
+    exchanges: {},
+    manual: {}
+  }
 };
 
 const appStateContext = createContext<AppStateContext>(initialState);
@@ -21,22 +31,33 @@ const useAppStateContext = (): AppStateContext => useContext(appStateContext);
 const { Provider, Consumer: AppStateConsumer } = appStateContext;
 
 const AppStateProvider: FC = ({ children }) => {
+  const [balances, setBalances] = useState<AllBalances>({
+    addresses: {},
+    exchanges: {},
+    manual: {}
+  });
   const CMCMap = useCMCMap();
-  // const ADAAddresses = getAddressesFromLS('ADA');
-
-  const [balances, addToBalances] = useReducer(
-    (prevBalances: Balance[], newCurrencies: Balance[]) =>
-      prevBalances.concat(newCurrencies),
+  const currencyAddresses = useMemo(
+    () =>
+      supportedCurrencyAddresses.map((currency) => ({
+        ...currency,
+        addresses: getAddressesFromLS(currency.value)
+      })),
     []
   );
-  // const ADAAddressesBalances = useAddressesBalance(
-  //   getADABalanceFromAPI,
-  //   'ADA',
-  //   ADAAddresses
-  // );
-  // useEffect(() => {
-  //   // if (ADAAddressesBalances.length) addToBalances(ADAAddressesBalances);
-  // }, [ADAAddressesBalances]);
+
+  useEffect(() => {
+    currencyAddresses.forEach((currency) => {
+      currency
+        .balanceFunction(currency.addresses, currency.value)
+        .then((addressesBalances) => {
+          setBalances((prev) => ({
+            ...prev,
+            addresses: { ...prev.addresses, ...addressesBalances }
+          }));
+        });
+    });
+  }, [currencyAddresses]);
 
   const value = {
     CMCMap,

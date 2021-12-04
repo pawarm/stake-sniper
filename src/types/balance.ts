@@ -1,18 +1,22 @@
 export interface Balance {
-  symbol:
-    | 'ADA'
-    | 'BTC'
-    | 'BCH'
-    | 'LTC'
-    | 'BSV'
-    | 'DOGE'
-    | 'DASH'
-    | 'GRS'
-    | 'ZEC'
-    | 'XEC';
-  origin: 'address';
-  origin_details: string;
+  symbol: string;
   balance: number;
   balance_state: 'available';
-  last_update: number;
+}
+
+export interface AddresesBalances {
+  [address: string]: Balance[];
+}
+
+export interface ExchangeBalances {
+  [exchange: string]: Balance[];
+}
+
+export interface ManualBalances {
+  [note: string]: Balance[];
+}
+export interface AllBalances {
+  addresses: AddresesBalances;
+  exchanges: ExchangeBalances;
+  manual: ManualBalances;
 }

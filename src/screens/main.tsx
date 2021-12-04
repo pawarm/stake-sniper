@@ -3,14 +3,16 @@ import { Container } from 'react-bootstrap';
 import { useAppStateContext } from 'contexts/app-context';
 
 const Main = () => {
-  const [cumulatedBalances, setCumulatedBalances] = useState({});
-
   const { CMCMap, balances } = useAppStateContext();
 
   return (
     <>
       <Container>
-        {balances.map((balance) => balance.symbol + ': ' + balance.balance)}
+        {Object.keys(balances.addresses).map((address) =>
+          balances.addresses[address].map(
+            (balance) => `${balance.symbol}: ${balance.balance}`
+          )
+        )}
       </Container>
       <Container> {CMCMap.length} </Container>
     </>

@@ -6,3 +6,22 @@ export const getBalanceByDecimals = (balance: string, decimals: number) => {
 
 export const getAddressesFromLS = (currency: string) =>
   JSON.parse(localStorage.getItem(currency + 'Addresses') || '[]') as string[];
+
+export const setAddressesInLS = (currency: string, addresses: string[]) =>
+  localStorage.setItem(currency + 'Addresses', JSON.stringify(addresses));
+
+export const addAddressToLS = (currency: string, address: string) => {
+  const addresses = getAddressesFromLS(currency);
+  if (!addresses.includes(address)) {
+    addresses.push(address);
+    setAddressesInLS(currency, addresses);
+  }
+};
+
+export const removeAddressFromLS = (currency: string, address: string) => {
+  const addresses = getAddressesFromLS(currency);
+  setAddressesInLS(
+    currency,
+    addresses.filter((a) => a !== address)
+  );
+};
