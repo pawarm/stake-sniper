@@ -7,4 +7,10 @@ router.get('/cryptocurrency/map', async (req, res) => {
   res.json(await fetchWithCache(url));
 });
 
+router.get('/cryptocurrency/quotes/latest', async (req, res) => {
+  console.log(req.query);
+  const url = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?CMC_PRO_API_KEY=${process.env.CMC_PRO_API_KEY}`;
+  res.json(await fetchWithCache(url));
+});
+
 module.exports = router;

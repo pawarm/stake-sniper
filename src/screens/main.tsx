@@ -9,9 +9,9 @@ const Main = () => {
     <>
       <Container>
         {Object.keys(balances.addresses).map((address) =>
-          balances.addresses[address].map(
-            (balance) => `${balance.symbol}: ${balance.balance}`
-          )
+          balances.addresses[address].map((balance) => (
+            <div>{`${balance.symbol}: ${balance.balance}`}</div>
+          ))
         )}
       </Container>
       <Container> {CMCMap.length} </Container>
