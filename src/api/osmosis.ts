@@ -1,45 +1,53 @@
 import { sendRequest } from "../utils/request";
 
-// export type OsmosisPoolData = {
-//     symbol: string;
-//     amount: number;
-//     denom: string;
-//     coingecko_id: string;
-//     liquidity: number;
-//     liquidity_24h_change: number;
-//     volume_24h: number;
-//     volume_24h_change: number;
-//     price: number;
-//     price_24h_change: number;
-//     fees: string;
-// }[]
-
-export type OsmosisPoolData = {
-  time: number,
-  close: number,
-  high: number,
-  low: number,
-  open: number
+export interface OsmosisPoolsData {
+  updated_at: number;
+  data: {
+      pool_address: string;
+      pool_id: string;
+      base_name: string;
+      base_symbol: string;
+      base_address: string;
+      quote_name: string;
+      quote_symbol: string;
+      quote_address: string;
+      price: number;
+      base_volume_24h: number;
+      quote_volume_24h: number;
+      volume_24h: number;
+      volume_7d: number;
+      liquidity: number;
+      liquidity_atom: number;
+  }[];
 }
 
-export const osmosisPoolDataRequest = async (pool: string, tokenDenom: string, lstDenom: string) => {
-  const response = await sendRequest<OsmosisPoolData[]>({
-    // url: `https://api-osmosis.imperator.co/pools/v2/${pool}`
-    url: `https://api-osmosis.imperator.co/pairs/v1/historical/${pool}/chart?asset_in=${tokenDenom}&asset_out=${lstDenom}&range=1d&asset_type=denom`
+interface OsmosisPoolData {
+  price: number;
+  poolId: string;
+}
+
+export const osmosisPoolsDataRequest = async () => {
+  const response = await sendRequest<OsmosisPoolsData>({
+    url: `https://api-osmosis.imperator.co/pairs/v1/summary`
   })
-  if (!response.data.length) return undefined
-  return response.data[response.data.length - 1]
+  return response.data
 }
 
-// export const getOsmosisPoolRate = (pool: OsmosisPoolData, tokenDenom: string, lstDenom: string) => {
-//   const tokenData = pool.find((token) => token.denom === tokenDenom)
-//   const lstData = pool.find((token) => token.denom === lstDenom)
-//   if (!tokenData?.price || !lstData?.price) {
-//     return undefined
-//   }
-//   return lstData.price / tokenData.price
-// }
-
-export const getOsmosisPoolRate = (pool: OsmosisPoolData) => {
-  return pool.close
+export const getLSTPoolsData = (data: OsmosisPoolsData['data'], tokenSymbol: string, lstSymbol: string) => {
+  const pools: OsmosisPoolData[] = [];
+  const lstPools = data.filter((pool) => pool.quote_symbol === lstSymbol && pool.base_symbol === tokenSymbol)
+  lstPools.forEach((pool) => {
+    pools.push({
+      price: pool.price,
+      poolId: pool.pool_id
+    })
+  })
+  const lstReversePools = data.filter((pool) => pool.quote_symbol === tokenSymbol && pool.base_symbol === lstSymbol)
+  lstReversePools.forEach((pool) => {
+    pools.push({
+      price: 1 / pool.price,
+      poolId: pool.pool_id
+    })
+  })
+  return pools;
 }

@@ -47,9 +47,3 @@ export const strideHostZoneDataRequest = async () => {
   })
   return response.data
 }
-
-export const getStrideRedemptionRate = (data: StrideHostZoneData, tokenDenom: string) => {
-  const zone = data.host_zone.find((zone) => zone.ibc_denom === tokenDenom)
-  return Number(zone?.redemption_rate)
-}
-
